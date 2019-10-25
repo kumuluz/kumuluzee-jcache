@@ -248,6 +248,24 @@ Used either to bulk fill cache from external source or for read-through operatio
 
 ## Cache CDI producer example
 
+### Static configuration
+
+```java
+public class CacheProducer {
+
+    @Inject
+    private CacheManager cacheManager;
+
+    @Produces
+    @ApplicationScoped
+    public Cache<String, String> createCache() {
+        return cacheManager.getCache("default");
+    }
+}
+```
+
+### Dynamic configuration
+
 ```java
 public class CacheProducer {
 
