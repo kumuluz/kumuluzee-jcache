@@ -3,7 +3,7 @@
 KumuluzEE JCache allows usage of JCache annotations and JCache programmatic API in your KumuluzEE applications.
 Current implementation used is [Caffeine](https://github.com/ben-manes/caffeine).
 
-For sample project, take a look at `kumuluzee-jcache` module in [https://github.com/kumuluz/kumuluzee-samples](kumuluzee-samples) repository.
+For sample project, take a look at `kumuluzee-jcache` module in [kumuluzee-samples](https://github.com/kumuluz/kumuluzee-samples) repository.
 
 This readme is not a comprehensive guide to JCache but is meant to outline the basic tasks you can accomplish with JCache annotations and APIs.
 
@@ -324,6 +324,18 @@ public class MyKeyGenerator implements CacheKeyGenerator {
     }
 }
 ```
+
+## Contribute
+
+See the [contributing docs](https://github.com/kumuluz/kumuluzee-jcache/blob/master/CONTRIBUTING.md)
+
+When submitting an issue, please follow the 
+[guidelines](https://github.com/kumuluz/kumuluzee-jcache/blob/master/CONTRIBUTING.md#bugs).
+
+When submitting a bugfix, write a test that exposes the bug and fails before applying your fix. Submit the test 
+alongside the fix.
+
+When submitting a new feature, add tests that cover the feature.
 
 ## License
 
