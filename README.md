@@ -173,7 +173,7 @@ public class Library {
 
 ### @CacheKey, @CacheValue
 
-`@CacheKey` annotates a method parameter to specify it as a cache key. If no parameter is annotated, cache key is formed from all method parameters (excluding parameters annotated with `@CacheValue`). `@CacheValue` marks a parameter to be stored as a value. By default, key is generated with `Arrays.deepHashCode()`.
+`@CacheKey` annotates a method parameter to specify it as a cache key. If no parameter is annotated, cache key is formed from all method parameters (excluding parameters annotated with `@CacheValue`). `@CacheValue` marks a parameter to be stored as a value. Default key implementation is `DefaultGeneratedCacheKey` which uses `Arrays.deepHashCode` and `Arrays.deepEquals` behind the scenes.
 
 ### @CachePut (interceptor)
 
@@ -301,7 +301,7 @@ public String get(String key) {
 }
 ```
 
-Looking from a high level, this should work but it does not due to different key hashcode being used in each case so the keys never match.
+Looking from a high level, this should work but it does not due to different key being used in each case so the keys never match. Annotation key by default is an instance of `DefaultGeneratedCacheKey`.
 
 To avoid any such pitfalls, use separate named caches for annotations and programmatic API.
 
