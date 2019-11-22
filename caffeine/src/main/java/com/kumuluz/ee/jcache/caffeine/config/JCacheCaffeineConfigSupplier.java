@@ -47,19 +47,19 @@ public class JCacheCaffeineConfigSupplier implements Supplier<Config> {
 
         if (confUtil.get(CONFIG_PREFIX).isPresent()) {
 
-            log.info("Custom JCache-Caffeine config detected");
+            log.info("JCache-Caffeine config detected in kumuluzee-config");
 
             String eeConfig = confUtil.get(CONFIG_PREFIX).get();
             Config customConfig = ConfigFactory.parseString(eeConfig);
 
             Config finalConfig = customConfig.withFallback(defaultConfig);
-            log.info(finalConfig.root().render());
+            log.fine(finalConfig.root().render());
 
             return finalConfig;
         }
 
-        log.info("No {} prefix found, resolving to default JCache-Caffeine configuration");
-        log.info(defaultConfig.root().render());
+        log.warning("No "+CONFIG_PREFIX+" prefix found, resolving to default JCache-Caffeine configuration");
+        log.fine(defaultConfig.root().render());
 
         return defaultConfig;
     }
