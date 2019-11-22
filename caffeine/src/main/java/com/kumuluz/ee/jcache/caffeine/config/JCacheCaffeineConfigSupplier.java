@@ -39,9 +39,21 @@ public class JCacheCaffeineConfigSupplier implements Supplier<Config> {
 
     private final static String CONFIG_PREFIX = "kumuluzee.jcache.caffeine";
 
+    private Config defaultConfig;
+    private Config finalConfig;
+
     @Override
     public Config get() {
-        Config defaultConfig = ConfigFactory.load();
+
+        if (finalConfig!=null) {
+            return finalConfig;
+        }
+
+        boolean defaultInitialLoad = false;
+        if (defaultConfig==null) {
+            defaultConfig = ConfigFactory.load();
+            defaultInitialLoad = true;
+        }
 
         ConfigurationUtil confUtil = ConfigurationUtil.getInstance();
 
@@ -52,14 +64,16 @@ public class JCacheCaffeineConfigSupplier implements Supplier<Config> {
             String eeConfig = confUtil.get(CONFIG_PREFIX).get();
             Config customConfig = ConfigFactory.parseString(eeConfig);
 
-            Config finalConfig = customConfig.withFallback(defaultConfig);
+            finalConfig = customConfig.withFallback(defaultConfig);
             log.fine(finalConfig.root().render());
 
             return finalConfig;
         }
 
-        log.warning("No "+CONFIG_PREFIX+" prefix found, resolving to default JCache-Caffeine configuration");
-        log.fine(defaultConfig.root().render());
+        if (defaultInitialLoad) {
+            log.warning("No " + CONFIG_PREFIX + " prefix found, resolving to default JCache-Caffeine configuration");
+            log.fine(defaultConfig.root().render());
+        }
 
         return defaultConfig;
     }
