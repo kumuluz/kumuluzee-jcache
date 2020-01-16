@@ -1,5 +1,7 @@
 # KumuluzEE JCache
 
+[![Build Status](https://travis-ci.org/kumuluz/kumuluzee-jcache.svg?branch=master)](https://travis-ci.org/kumuluz/kumuluzee-jcache)
+
 KumuluzEE JCache allows usage of JCache annotations and JCache programmatic API in your KumuluzEE applications.
 Current implementation used is [Caffeine](https://github.com/ben-manes/caffeine).
 
