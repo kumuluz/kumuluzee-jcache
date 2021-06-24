@@ -197,12 +197,12 @@ public Book getBook(@CacheKey String id) {
 }
 ```
 
-### @CacheRemoveEntry (interceptor)
+### @CacheRemove (interceptor)
 
 Removes an entry from cache after method completion.
 
 ```java
-@CacheRemoveEntry
+@CacheRemove
 public Book removeBook(String id) {
 }
 ```
