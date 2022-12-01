@@ -9,9 +9,9 @@ For sample project, take a look at `kumuluzee-jcache` module in [kumuluzee-sampl
 
 This readme is not a comprehensive guide to JCache but is meant to outline the basic tasks you can accomplish with JCache annotations and APIs.
 
-Additional resources:  
-[tomitribe/microprofile-jcache](https://github.com/tomitribe/microprofile-jcache/tree/master/jcache-cdi)  
-[JCache JavaDoc](https://www.javadoc.io/doc/javax.cache/cache-api/1.1.1)
+Additional resources:
+- [tomitribe/microprofile-jcache](https://github.com/tomitribe/microprofile-jcache/tree/master/jcache-cdi)
+- [JCache JavaDoc](https://www.javadoc.io/doc/javax.cache/cache-api/1.1.1)
 
 ## Maven dependency
 
