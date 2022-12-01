@@ -36,8 +36,8 @@ kumuluzee:
     name: dev
   jcache:
     caffeine:
-      caffeine.jcache:
-        # A named cache is configured by nesting a new definition under the caffeine.jcache namespace.
+      caches:
+        # A named cache is configured by nesting a new definition under the caches namespace.
         # The per-cache configuration is overlaid on top of the default configuration.
         default:
           # The required type of the keys
@@ -147,7 +147,7 @@ kumuluzee:
     name: dev
   jcache:
     caffeine:
-      caffeine.jcache:
+      caches:
         default:
           policy:
             eager-expiration:

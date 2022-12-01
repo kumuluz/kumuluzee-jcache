@@ -26,8 +26,13 @@ import com.kumuluz.ee.configuration.utils.ConfigurationUtil;
 import com.typesafe.config.Config;
 import com.typesafe.config.ConfigFactory;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 /**
  * @author cen1
@@ -57,12 +62,21 @@ public class JCacheCaffeineConfigSupplier implements Supplier<Config> {
 
         ConfigurationUtil confUtil = ConfigurationUtil.getInstance();
 
-        if (confUtil.get(CONFIG_PREFIX).isPresent()) {
+        Optional<Boolean> enabled = confUtil.getBoolean(CONFIG_PREFIX + ".enabled").or(() -> {
+            Optional<List<String>> mapKeys = confUtil.getMapKeys(CONFIG_PREFIX);
+
+            return Optional.of(mapKeys.isPresent() && !mapKeys.get().isEmpty());
+        });
+        if (enabled.isPresent() && enabled.get()) {
 
             log.info("JCache-Caffeine config detected in kumuluzee-config");
 
-            String eeConfig = confUtil.get(CONFIG_PREFIX).get();
-            Config customConfig = ConfigFactory.parseString(eeConfig);
+            Map<String, String> eeConfig = buildPropertiesMap().entrySet().stream()
+                    .collect(Collectors.toMap(
+                            e -> e.getKey().replace(CONFIG_PREFIX + ".caches", "caffeine.jcache"),
+                            Map.Entry::getValue
+                    ));
+            Config customConfig = ConfigFactory.parseMap(eeConfig);
 
             finalConfig = customConfig.withFallback(defaultConfig);
             log.fine(finalConfig.root().render());
@@ -76,5 +90,36 @@ public class JCacheCaffeineConfigSupplier implements Supplier<Config> {
         }
 
         return defaultConfig;
+    }
+
+    private Map<String, String> buildPropertiesMap() {
+        Map<String, String> properties = new HashMap<>();
+        buildPropertiesMap(properties, CONFIG_PREFIX + ".caches");
+        return properties;
+    }
+
+    private void buildPropertiesMap(Map<String, String> map, String prefix) {
+
+        ConfigurationUtil configurationUtil = ConfigurationUtil.getInstance();
+
+        Optional<List<String>> mapKeys = configurationUtil.getMapKeys(prefix);
+
+        if (mapKeys.isPresent()) {
+            String nextPrefix = (prefix.isEmpty()) ? "" : prefix + ".";
+            for (String s : mapKeys.get()) {
+                buildPropertiesMap(map, nextPrefix + s);
+            }
+        } else if (!prefix.isEmpty()) {
+            Optional<Integer> listSize = configurationUtil.getListSize(prefix);
+
+            if (listSize.isPresent()) {
+                for (int i = 0; i < listSize.get(); i++) {
+                    buildPropertiesMap(map, prefix + "[" + i + "]");
+                }
+            } else {
+                Optional<String> value = configurationUtil.get(prefix);
+                value.ifPresent(s -> map.put(prefix, s));
+            }
+        }
     }
 }
