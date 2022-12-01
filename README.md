@@ -14,7 +14,8 @@ Additional resources:
 [JCache JavaDoc](https://www.javadoc.io/doc/javax.cache/cache-api/1.1.1)
 
 ## Maven dependency
-```
+
+```xml
 <dependency>
     <groupId>com.kumuluz.ee.jcache</groupId>
     <artifactId>kumuluzee-jcache-caffeine</artifactId>
