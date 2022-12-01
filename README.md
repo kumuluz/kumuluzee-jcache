@@ -18,7 +18,7 @@ Additional resources:
 <dependency>
     <groupId>com.kumuluz.ee.jcache</groupId>
     <artifactId>kumuluzee-jcache-caffeine</artifactId>
-    <version>1.0.0</version>
+    <version>${kumuluzee-jcache-caffeine.version}</version>
 </dependency>
 ```
 

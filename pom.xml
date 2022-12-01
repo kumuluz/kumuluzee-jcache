@@ -6,7 +6,7 @@
 
     <groupId>com.kumuluz.ee.jcache</groupId>
     <artifactId>kumuluzee-jcache</artifactId>
-    <version>1.1.0-SNAPSHOT</version>
+    <version>2.0.0-SNAPSHOT</version>
     <modules>
         <module>common</module>
         <module>caffeine</module>
@@ -23,11 +23,11 @@
     <url>https://ee.kumuluz.com</url>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <kumuluzee.version>3.6.0</kumuluzee.version>
+        <kumuluzee.version>4.0.0</kumuluzee.version>
 
         <jcache-api.version>1.1.1</jcache-api.version>
         <caffeine.version>2.8.1</caffeine.version>
@@ -49,10 +49,10 @@
 
     <developers>
         <developer>
-            <name>cen1</name>
-            <id>cen1</id>
-            <email>cen.is.imba@gmail.com</email>
-            <url>https://github.com/cen1</url>
+            <name>KumuluzEE Development Team</name>
+            <id>kumuluz</id>
+            <email>info@kumuluz.com</email>
+            <url>https://github.com/kumuluz</url>
         </developer>
     </developers>
 
@@ -70,6 +70,19 @@
         </snapshotRepository>
     </distributionManagement>
 
+    <repositories>
+        <repository>
+            <id>sonatype-snapshots</id>
+            <name>OSS Sonatype repo (snapshots)</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -142,6 +155,12 @@
                                 <goals>
                                     <goal>sign</goal>
                                 </goals>
+                                <configuration>
+                                    <gpgArguments>
+                                        <arg>--pinentry-mode</arg>
+                                        <arg>loopback</arg>
+                                    </gpgArguments>
+                                </configuration>
                             </execution>
                         </executions>
                     </plugin>
